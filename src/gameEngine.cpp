@@ -1,6 +1,6 @@
 #include "gameEngine.h"
 #include "square.h"
-#include "pixelZone.h"
+#include "fontPixelZone.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
@@ -14,6 +14,9 @@ gameEngine::gameEngine(){
 
     screenWidth  = 480.0;
     screenHeight = 270.0;
+
+    screenCentre = {{'X', screenWidth/2},{'Y',screenHeight/2}};
+    
     fps          = 60.0;
     deltaTime    = 1/fps;
     coyoteSpace  = 5.0;
@@ -24,7 +27,7 @@ gameEngine::gameEngine(){
     gameWindow.create(sf::VideoMode(sf::Vector2u(screenWidth, screenHeight)),gameTitle,sf::Style::None);
 
     objs = { 
-             {"ball",    Square("ball",    {{'X', 100},{'Y',100}},{{'X',1.0},{'Y',0.0}}, {{'X',6.0},{'Y',6.0}} )},
+             {"ball",    Square("ball",    screenCentre, {{'X',1.0},{'Y',0.0}}, {{'X',6.0},{'Y',6.0}})},
              {"paddleA", Square("paddleA", {{'X', 6}, {'Y',117}},{{'X',0.0},{'Y',0.0}}, {{'X',6.0},{'Y',36.0}} )},
              {"paddleB", Square("paddleB", {{'X', 468},{'Y',117}},{{'X',0.0},{'Y',0.0}}, {{'X',6.0},{'Y',36.0}} )}   
            };
@@ -317,108 +320,3 @@ void gameEngine::mainGameLoop(){
         }
     }
 }
-
-
-
-//     while (gameWindow.isOpen())
-//     {   
-//         gameWindow.display();
-//         sf::Time elapsedTime = clock.getElapsedTime();
-        
-//         while (auto event = gameWindow.pollEvent()){ if (event->is<sf::Event::Closed>()){gameWindow.close();}}
-
-//         gameWindow.clear();
-        
-            
-
-//         if (gameStart){
-
-//             gameCounter++;
-//             //Check for inputs
-//             if ((gameCounter % 10) == 0){inputCheck();}
-
-            
-//             //Update objects
-//             objs.at("ball").updatePosition(deltaTime);
-//             objs.at("paddleA").updatePosition(deltaTime);
-//             objs.at("paddleB").updatePosition(deltaTime);
-            
-
-//             if ((gameCounter % 10) == 0){collisionCheck();}
-
-
-//             objs.at("ball").normaliseVelocity();
-
-//             //Render new frame
-            
-//             //Draw sprites
-//             gameWindow.draw(line.data(), line.size(), sf::PrimitiveType::Lines);
-//             gameWindow.draw(objs.at("ball").getSprite());
-//             gameWindow.draw(objs.at("paddleA").getSprite());
-//             gameWindow.draw(objs.at("paddleB").getSprite());
-            
-//             scoreAText.setString(std::to_string(scoreA));
-//             scoreAText.setPosition(sf::Vector2f(120, 10));
-//             scoreBText.setString(std::to_string(scoreB));
-//             scoreBText.setPosition(sf::Vector2f(360, 10));
-
-//             gameWindow.draw(scoreAText);
-//             gameWindow.draw(scoreBText);
-
-//             clock.reset();
-
-//             if ((objs.at("ball").getPosition('X') < 0) or (objs.at("ball").getPosition('X') > 474)){
-//                 gameStart = false;
-//                 firstRun = false;
-//                 gameReset = true;
-//             }
-
-//         } else if (firstRun) {
-
-//             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)){gameWindow.close();}
-
-//             titleText.setString("PONG");
-//             titleText.setPosition(sf::Vector2f(205, 40));
-            
-//             gameWindow.draw(titleText);
-//             gameWindow.draw(objs.at("ball").getSprite());
-//             gameWindow.draw(objs.at("paddleA").getSprite());
-//             gameWindow.draw(objs.at("paddleB").getSprite());
-
-//             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-//                 gameStart = true;
-//                 firstRun = false;
-//                 gameReset = false;
-//             }
-            
-//         } else if (gameReset) {
-
-//             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)){gameWindow.close();}
-
-//             // {"ball",    Square("ball",    {{'X', 237},{'Y',132}},{{'X',1.0},{'Y',0.0}}, {{'X',6.0},{'Y',6.0}} )}
-            
-//             objs.at("ball").setPosition({{'X', 237},{'Y',132}});
-//             objs.at("ball").setVelocity({{'X', 0},{'Y',0}});
-            
-//             gameWindow.draw(line.data(), line.size(), sf::PrimitiveType::Lines);
-//             gameWindow.draw(objs.at("ball").getSprite());
-//             gameWindow.draw(objs.at("paddleA").getSprite());
-//             gameWindow.draw(objs.at("paddleB").getSprite());
-            
-//             scoreAText.setString(std::to_string(scoreA));
-//             scoreAText.setPosition(sf::Vector2f(120, 10));
-//             scoreBText.setString(std::to_string(scoreB));
-//             scoreBText.setPosition(sf::Vector2f(360, 10));
-
-//             gameWindow.draw(scoreAText);
-//             gameWindow.draw(scoreBText);
-
-//             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-//                 gameStart = true;
-//                 firstRun  = false;
-//                 gameReset = false;
-//                 objs.at("ball").setVelocity({{'X', 1},{'Y',0}});
-//             }
-//         }
-//     }
-// }

@@ -8,9 +8,10 @@
 Square::Square(std::string id, std::map<char, float> pos, std::map<char, float> vel, std::map<char, float> s){
     name     = id;
     position = pos;
-    lastPosition = pos;
+    topLeftCornerPosition = pos;
     velocity = vel;
     size     = s;
+    
     edges    = {{'R', position['X'] + size['X']},
                 {'L', position['X']}, 
                 {'B', position['Y'] + size['Y']},

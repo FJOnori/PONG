@@ -10,7 +10,7 @@ class Square {
 private:
     std::string name;
     std::map<char, float> position;
-    std::map<char, float> lastPosition;
+    std::map<char, float> topLeftCornerPosition;
     std::map<char, float> velocity;
     std::map<char, float> size;
     std::map<char, float> edges;

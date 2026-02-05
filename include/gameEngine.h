@@ -17,6 +17,8 @@ private:
     int gameState;
     float screenWidth;
     float screenHeight;
+    std::map<char, float> screenCentre;
+
     float fps;
     float deltaTime;
     float coyoteSpace;
